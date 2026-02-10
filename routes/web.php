@@ -6,6 +6,8 @@ use App\Http\Controllers\DocumentCategoryController;
 use App\Http\Controllers\DocumentCodeController;
 use App\Http\Controllers\WorkUnitController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,6 +37,17 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('documents', DocumentController::class)
         ->only(['index', 'create', 'store']);
 
+});
+
+
+Route::middleware(['auth','role:admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])
+        ->name('admin.dashboard');
+});
+
+Route::middleware(['auth','role:user'])->group(function () {
+    Route::get('/user/dashboard', [UserController::class, 'index'])
+        ->name('user.dashboard');
 });
 
 require __DIR__ . '/auth.php';
