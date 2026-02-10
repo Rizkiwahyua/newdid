@@ -29,13 +29,12 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('document-codes', DocumentCodeController::class)
         ->only(['index', 'create', 'store']);
 
-
     Route::resource('work-units', WorkUnitController::class)
         ->only(['index', 'create', 'store']);
 
-
     Route::resource('documents', DocumentController::class)
         ->only(['index', 'create', 'store']);
+        
 });
 
 require __DIR__ . '/auth.php';
