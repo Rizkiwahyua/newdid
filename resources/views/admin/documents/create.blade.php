@@ -1,8 +1,10 @@
-<x-app-layout>
-    <div class="p-6 max-w-xl">
+@extends('layouts.app')
+
+@section('content')
+    <div class="max-w-xl">
         <h1 class="text-xl font-bold mb-4">Tambah Dokumen</h1>
 
-        <form method="POST" action="{{ route('documents.store') }}">
+        <form method="POST" action="{{ route('admin.documents.store') }}">
             @csrf
 
             <div class="mb-3">
@@ -62,4 +64,4 @@
             </button>
         </form>
     </div>
-</x-app-layout>
+@endsection

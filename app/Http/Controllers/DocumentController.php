@@ -13,12 +13,12 @@ class DocumentController extends Controller
     public function index()
     {
         $documents = Document::with(['category', 'code', 'workUnit'])->get();
-        return view('documents.index', compact('documents'));
+        return view('admin.documents.index', compact('documents'));
     }
 
     public function create()
     {
-        return view('documents.create', [
+        return view('admin.documents.create', [
             'categories' => DocumentCategory::all(),
             'codes'      => DocumentCode::all(),
             'units'      => WorkUnit::all(),
@@ -36,6 +36,6 @@ class DocumentController extends Controller
 
         Document::create($request->all());
 
-        return redirect()->route('documents.index');
+        return redirect()->route('admin.documents.index');
     }
 }

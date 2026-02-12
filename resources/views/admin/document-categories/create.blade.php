@@ -1,8 +1,10 @@
-<x-app-layout>
+@extends('layouts.app')
+
+@section('content')
     <div class="p-6 max-w-md">
         <h1 class="text-xl font-bold mb-4">Tambah Kategori</h1>
 
-        <form method="POST" action="{{ route('document-categories.store') }}">
+        <form method="POST" action="{{ route('admin.document-categories.store') }}">
             @csrf
 
             <div class="mb-4">
@@ -15,4 +17,4 @@
             </button>
         </form>
     </div>
-</x-app-layout>
+@endsection
