@@ -10,12 +10,12 @@ class DocumentCodeController extends Controller
     public function index()
     {
         $codes = DocumentCode::all();
-        return view('document-codes.index', compact('codes'));
+        return view('admin.document-codes.index', compact('codes'));
     }
 
     public function create()
     {
-        return view('document-codes.create');
+        return view('admin.document-codes.create');
     }
 
     public function store(Request $request)
@@ -30,6 +30,6 @@ class DocumentCodeController extends Controller
             'is_active' => true
         ]);
 
-        return redirect()->route('document-codes.index');
+        return redirect()->route('admin.document-codes.index');
     }
 }

@@ -11,12 +11,12 @@ class WorkUnitController extends Controller
     public function index()
     {
         $units = WorkUnit::all();
-        return view('work-units.index', compact('units'));
+        return view('admin.work-units.index', compact('units'));
     }
 
     public function create()
     {
-        return view('work-units.create');
+        return view('admin.work-units.create');
     }
 
     public function store(Request $request)
@@ -31,6 +31,6 @@ class WorkUnitController extends Controller
             'is_active' => true
         ]);
 
-        return redirect()->route('work-units.index');
+        return redirect()->route('admin.work-units.index');
     }
 }

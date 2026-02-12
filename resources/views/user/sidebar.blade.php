@@ -7,19 +7,21 @@
         <!-- Dashboard -->
         <li>
             <a href=""
-               class="group flex items-center gap-4 px-4 py-3 rounded-xl
+                class="group flex items-center gap-4 px-4 py-3 rounded-xl
                       text-indigo-100 hover:bg-indigo-600 hover:text-white transition">
-                <span class="w-10 h-10 flex items-center justify-center rounded-lg bg-indigo-600 group-hover:bg-white group-hover:text-indigo-700">
+                <span
+                    class="w-10 h-10 flex items-center justify-center rounded-lg bg-indigo-600 group-hover:bg-white group-hover:text-indigo-700">
                     <i class="bi bi-speedometer2 text-lg"></i>
                 </span>
                 Dashboard
             </a>
         </li>
-  <li>
+        <li>
             <a href=""
-               class="group flex items-center gap-4 px-4 py-3 rounded-xl
+                class="group flex items-center gap-4 px-4 py-3 rounded-xl
                       text-indigo-100 hover:bg-indigo-600 hover:text-white transition">
-                <span class="w-10 h-10 flex items-center justify-center rounded-lg bg-indigo-600 group-hover:bg-white group-hover:text-indigo-700">
+                <span
+                    class="w-10 h-10 flex items-center justify-center rounded-lg bg-indigo-600 group-hover:bg-white group-hover:text-indigo-700">
                     <i class="bi bi-speedometer2 text-lg"></i>
                 </span>
                 Dokumen
@@ -28,9 +30,10 @@
         <!-- Settings -->
         <li>
             <a href=""
-               class="group flex items-center gap-4 px-4 py-3 rounded-xl
+                class="group flex items-center gap-4 px-4 py-3 rounded-xl
                       text-indigo-100 hover:bg-indigo-600 hover:text-white transition">
-                <span class="w-10 h-10 flex items-center justify-center rounded-lg bg-indigo-600 group-hover:bg-white group-hover:text-indigo-700">
+                <span
+                    class="w-10 h-10 flex items-center justify-center rounded-lg bg-indigo-600 group-hover:bg-white group-hover:text-indigo-700">
                     <i class="bi bi-gear text-lg"></i>
                 </span>
                 Settings

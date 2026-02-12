@@ -11,12 +11,12 @@ class DocumentCategoryController extends Controller
     public function index()
     {
         $categories = DocumentCategory::all();
-        return view('document-categories.index', compact('categories'));
+        return view('admin.document-categories.index', compact('categories'));
     }
 
     public function create()
     {
-        return view('document-categories.create');
+        return view('admin.document-categories.create');
     }
 
     public function store(Request $request)
@@ -31,6 +31,6 @@ class DocumentCategoryController extends Controller
             'is_active' => true
         ]);
 
-        return redirect()->route('document-categories.index');
+        return redirect()->route('admin.document-categories.index');
     }
 }

@@ -13,40 +13,43 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth'])->group(function () {
 
-    Route::resource('document-categories', DocumentCategoryController::class)
-        ->only(['index', 'create', 'store']);
+Route::middleware(['auth', 'role:admin'])
+    ->prefix('admin')
+    ->as('admin.')
+    ->group(function () {
 
-    Route::resource('document-codes', DocumentCodeController::class)
-        ->only(['index', 'create', 'store']);
+        Route::get('/dashboard', [AdminController::class, 'index'])
+            ->name('dashboard');
 
-    Route::resource('work-units', WorkUnitController::class)
-        ->only(['index', 'create', 'store']);
+        Route::resource('documents', DocumentController::class)
+            ->only(['index', 'create', 'store']);
 
-    Route::resource('documents', DocumentController::class)
-        ->only(['index', 'create', 'store']);
+        Route::resource('document-categories', DocumentCategoryController::class)
+            ->only(['index', 'create', 'store']);
 
-});
+        Route::resource('document-codes', DocumentCodeController::class)
+            ->only(['index', 'create', 'store']);
+
+        Route::resource('work-units', WorkUnitController::class)
+            ->only(['index', 'create', 'store']);
+    });
 
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('dashboard');
-});
+Route::middleware(['auth', 'role:user'])
+    ->prefix('user')
+    ->as('user.')
+    ->group(function () {
 
-Route::middleware(['auth','role:user'])->group(function () {
-    Route::get('/user/dashboard', [UserController::class, 'index'])
-        ->name('user.dashboard');
-});
+        Route::get('/dashboard', [UserController::class, 'index'])
+            ->name('dashboard');
+    });
+
 
 require __DIR__ . '/auth.php';

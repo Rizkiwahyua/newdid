@@ -1,8 +1,10 @@
-<x-app-layout>
+@extends('layouts.app')
+
+@section('content')
     <div class="p-6 max-w-md">
         <h1 class="text-xl font-bold mb-4">Tambah Kode Dokumen</h1>
 
-        <form method="POST" action="{{ route('document-codes.store') }}">
+        <form method="POST" action="{{ route('admin.document-codes.store') }}">
             @csrf
 
             <div class="mb-4">
@@ -20,4 +22,4 @@
             </button>
         </form>
     </div>
-</x-app-layout>
+@endsection
