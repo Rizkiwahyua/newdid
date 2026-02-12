@@ -6,7 +6,7 @@
 
         <!-- Dashboard -->
         <li>
-            <a href=""
+            <a href="{{ route ('dashboard') }}"
                class="group flex items-center gap-4 px-4 py-3 rounded-xl
                       text-indigo-100 hover:bg-indigo-600 hover:text-white transition">
                 <span class="w-10 h-10 flex items-center justify-center rounded-lg bg-indigo-600 group-hover:bg-white group-hover:text-indigo-700">
@@ -50,7 +50,7 @@
         </li>
 
             <li>
-            <a href=""
+            <a href="{{ route ('admin.user') }}"
                class="group flex items-center gap-4 px-4 py-3 rounded-xl
                       text-indigo-100 hover:bg-indigo-600 hover:text-white transition">
                 <span class="w-10 h-10 flex items-center justify-center rounded-lg bg-indigo-600 group-hover:bg-white group-hover:text-indigo-700">

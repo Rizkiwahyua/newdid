@@ -7,6 +7,7 @@ use App\Http\Controllers\DocumentCodeController;
 use App\Http\Controllers\WorkUnitController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
@@ -42,6 +43,10 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('dashboard');
+
+
+
+    Route::get('/admin/user', [AdminUserController::class, 'index'])->name('admin.user');
 });
 
 Route::middleware(['auth','role:user'])->group(function () {
