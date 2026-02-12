@@ -18,9 +18,30 @@
     <body class="font-sans antialiased">
     <div class="min-h-screen flex bg-gray-100">
          <!-- Sidebar -->
-        <aside class="w-50 bg-indigo-700 shadow-md min-h-screen flex flex-col overflow-y-auto">
-            <div class="p-6 border-b border-indigo-600">
-        <h1 class="text-xl font-bold text-white">Admin Panel</h1>
+       <aside class="w-64 bg-indigo-700 shadow-md min-h-screen flex flex-col overflow-y-auto">
+
+    <!-- ================= PROFILE USER ================= -->
+    <div class="p-6 border-b border-indigo-600 flex flex-col items-center">
+
+        <!-- FOTO -->
+       <img
+    src="{{ auth()->user()->photo
+            ? asset('images/'.auth()->user()->photo)
+            : asset('images/profile.png') }}"
+    class="w-16 h-16 rounded-full object-cover border-4 border-white shadow"
+/>
+
+
+        <!-- NAMA -->
+        <p class="mt-3 text-white font-semibold text-sm text-center">
+            {{ auth()->user()->name }}
+        </p>
+
+        <!-- BADGE ROLE -->
+        <span class="mt-1 text-xs bg-indigo-500 text-white px-3 py-1 rounded-full">
+            {{ ucfirst(auth()->user()->role) }}
+        </span>
+
     </div>
 
             @if(auth()->user()->role === 'admin')
