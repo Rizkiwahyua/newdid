@@ -9,7 +9,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\DepartmentController;
 // Halaman login
 Route::get('/', function () {
     return view('auth.login');
@@ -49,11 +49,12 @@ Route::middleware(['auth', 'role:admin'])
             ->only(['index', 'create', 'store']);
 
         // Work Units
-        Route::resource('work-units', WorkUnitController::class)
-            ->only(['index', 'create', 'store']);
+        // Route::resource('work-units', WorkUnitController::class)
+        //     ->only(['index', 'create', 'store']);
 
         // Users
        Route::resource('user', AdminUserController::class);
+       Route::resource('department', DepartmentController::class);
 
     });
 

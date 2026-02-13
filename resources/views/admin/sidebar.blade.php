@@ -51,7 +51,7 @@
         </li>
 
 
-            <a href="{{ route('admin.work-units.index') }}"
+            <a href="{{ route('admin.department.index') }}"
 
                class="group flex items-center gap-4 px-4 py-3 rounded-xl
                       text-indigo-100 hover:bg-indigo-600 hover:text-white transition">
