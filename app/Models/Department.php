@@ -8,6 +8,7 @@ class Department extends Model
 {
     protected $fillable = [
         'name',
+        'is_active',
     ];
 
     // relasi ke user
@@ -15,4 +16,10 @@ class Department extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function documents()
+{
+    return $this->hasMany(Document::class);
+}
+
 }
