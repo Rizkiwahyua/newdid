@@ -14,6 +14,7 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     </head>
     <body class="font-sans antialiased">
     <div class="min-h-screen flex bg-gray-100">
@@ -54,7 +55,6 @@
         <!-- Main Content -->
         <div class="flex-1">
             @include('layouts.navigation')
-
             <!-- Page Heading -->
             @isset($header)
                 <header class="bg-white shadow">
@@ -70,4 +70,39 @@
             </main>
         </div>
     </div>
+
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if(session('success'))
+<script>
+Swal.fire({
+    icon: 'success',
+    title: 'Berhasil!',
+    text: '{{ session('success') }}',
+    confirmButtonColor: '#6366f1'
+});
+</script>
+@endif
+
+@if(session('error'))
+<script>
+Swal.fire({
+    icon: 'error',
+    title: 'Gagal!',
+    text: '{{ session('error') }}',
+    confirmButtonColor: '#6366f1'
+});
+</script>
+@endif
+
+@if ($errors->any())
+<script>
+Swal.fire({
+    icon: 'warning',
+    title: 'Oops...',
+    text: 'Periksa kembali input Anda!',
+    confirmButtonColor: '#6366f1'
+});
+</script>
+@endif
+
 </body>

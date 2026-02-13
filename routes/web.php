@@ -10,57 +10,63 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\UserController;
 
+// Halaman login
 Route::get('/', function () {
     return view('auth.login');
 });
 
+// ============================
+// Profile (Auth Only)
+// ============================
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
+// ============================
+// Admin Routes
+// ============================
 Route::middleware(['auth', 'role:admin'])
     ->prefix('admin')
     ->as('admin.')
     ->group(function () {
 
+        // Dashboard
         Route::get('/dashboard', [AdminController::class, 'index'])
-            ->name('dashboard');
+            ->name('dashboard'); // nama route = admin.dashboard
 
+        // Documents
         Route::resource('documents', DocumentController::class)
             ->only(['index', 'create', 'store']);
 
+        // Document Categories
         Route::resource('document-categories', DocumentCategoryController::class)
             ->only(['index', 'create', 'store']);
 
+        // Document Codes
         Route::resource('document-codes', DocumentCodeController::class)
             ->only(['index', 'create', 'store']);
 
+        // Work Units
         Route::resource('work-units', WorkUnitController::class)
             ->only(['index', 'create', 'store']);
 
-        Route::get('/admin/user', [AdminUserController::class, 'index'])->name('admin.user');
+        // Users
+       Route::resource('user', AdminUserController::class);
+
     });
 
-
-
-// Route::middleware(['auth', 'role:admin'])->group(function () {
-//     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('dashboard');
-
-
-//     Route::get('/admin/user', [AdminUserController::class, 'index'])->name('admin.user');
-// });
-
+// ============================
+// User Routes
+// ============================
 Route::middleware(['auth', 'role:user'])
     ->prefix('user')
     ->as('user.')
     ->group(function () {
 
         Route::get('/dashboard', [UserController::class, 'index'])
-            ->name('dashboard');
+            ->name('dashboard'); // nama route = user.dashboard
     });
-
 
 require __DIR__ . '/auth.php';
