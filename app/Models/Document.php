@@ -30,8 +30,9 @@ class Document extends Model
         return $this->belongsTo(DocumentCode::class, 'document_code_id');
     }
 
-    public function workUnit()
-    {
-        return $this->belongsTo(WorkUnit::class, 'work_unit_id');
-    }
+    public function department()
+{
+    return $this->belongsTo(Department::class);
+}
+
 }
