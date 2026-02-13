@@ -31,10 +31,10 @@
             </div>
 
             <div class="mb-3">
-                <label>Unit Kerja</label>
-                <select name="work_unit_id" class="w-full border px-3 py-2">
-                    @foreach ($units as $unit)
-                        <option value="{{ $unit->id }}">{{ $unit->name }}</option>
+                <label>Departemen</label>
+                <select name="department_id" class="w-full border px-3 py-2">
+                    @foreach ($departments as $department)
+                        <option value="{{ $department->id }}">{{ $department->name }}</option>
                     @endforeach
                 </select>
             </div>

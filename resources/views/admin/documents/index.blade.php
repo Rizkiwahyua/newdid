@@ -15,7 +15,7 @@
                 <th class="border p-2">Judul</th>
                 <th class="border p-2">Kategori</th>
                 <th class="border p-2">Kode</th>
-                <th class="border p-2">Unit Kerja</th>
+                <th class="border p-2">Departemen</th>
                 <th class="border p-2">Nomor Dokumen</th>
                 <th class="border p-2">Revisi</th>
                 <th class="border p-2">Tanggal</th>
@@ -28,7 +28,7 @@
                     <td class="border p-2">{{ $doc->title }}</td>
                     <td class="border p-2">{{ $doc->category->name }}</td>
                     <td class="border p-2">{{ $doc->code->code }}</td>
-                    <td class="border p-2">{{ $doc->workUnit->name }}</td>
+                    <td class="border p-2">{{ $doc->department->name }}</td>
                     <td class="border p-2">{{ $doc->document_number }}</td>
                     <td class="border p-2">{{ $doc->revision }}</td>
                     <td class="border p-2">{{ $doc->document_date }}</td>

@@ -17,7 +17,7 @@ class Document extends Model
         'description',
         'document_category_id',
         'document_code_id',
-        'work_unit_id',
+        'department_id',
     ];
 
     public function category()

@@ -27,11 +27,7 @@ return new class extends Migration
             $table->foreignId('document_code_id')
                 ->constrained()
                 ->cascadeOnDelete();
-
-            $table->foreignId('work_unit_id')
-                ->constrained()
-                ->cascadeOnDelete();
-
+                
             $table->timestamps();
         });
     }

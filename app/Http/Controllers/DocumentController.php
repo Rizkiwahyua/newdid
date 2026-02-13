@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Document;
 use App\Models\DocumentCategory;
 use App\Models\DocumentCode;
-use App\Models\WorkUnit;
+use App\Models\Department; // ganti WorkUnit ke Department
 use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
     public function index()
     {
-        $documents = Document::with(['category', 'code', 'workUnit'])->get();
+        // Ubah relasi workUnit ke department
+        $documents = Document::with(['category', 'code', 'department'])->get();
         return view('admin.documents.index', compact('documents'));
     }
 
@@ -21,7 +22,7 @@ class DocumentController extends Controller
         return view('admin.documents.create', [
             'categories' => DocumentCategory::all(),
             'codes'      => DocumentCode::all(),
-            'units'      => WorkUnit::all(),
+            'departments' => Department::all(), // ganti 'units' jadi 'departments'
         ]);
     }
 
@@ -31,7 +32,7 @@ class DocumentController extends Controller
             'title'                => 'required',
             'document_category_id' => 'required',
             'document_code_id'     => 'required',
-            'work_unit_id'         => 'required',
+            'department_id'        => 'required', // tetap pakai department_id
         ]);
 
         Document::create($request->all());
