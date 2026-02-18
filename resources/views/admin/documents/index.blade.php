@@ -65,7 +65,18 @@
                     <td class="border p-2">{{ $doc->department->name }}</td>
                     <td class="border p-2">{{ $doc->document_number }}</td>
                     <td class="border p-2">{{ $doc->revision }}</td>
-                    <td class="border p-2">Kosong</td>
+                    <td class="border p-2 text-center">
+    @if($doc->file_document)
+        <a href="{{ asset($doc->file_document) }}"
+           target="_blank"
+           class="bg-green-500 text-white px-3 py-1 rounded text-sm">
+            Lihat PDF
+        </a>
+    @else
+        <span class="text-gray-400 text-sm">Tidak Ada File</span>
+    @endif
+</td>
+
                     <td class="border p-2">{{ $doc->document_date }}</td>
                     <td class="border p-2">{{ $doc->description }}</td>
                 </tr>

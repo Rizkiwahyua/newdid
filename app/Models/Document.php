@@ -18,6 +18,7 @@ class Document extends Model
         'document_category_id',
         'document_code_id',
         'department_id',
+        'file_document',
     ];
 
     public function category()

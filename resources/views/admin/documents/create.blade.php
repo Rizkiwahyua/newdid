@@ -17,7 +17,7 @@
 
         {{-- Body --}}
         <div class="p-8">
-        <form method="POST" action="{{ route('admin.documents.store') }}">
+        <form method="POST" action="{{ route('admin.documents.store') }}" enctype="multipart/form-data">
             @csrf
 
             <div class="mb-3">
