@@ -48,11 +48,7 @@ Route::middleware(['auth', 'role:admin'])
         Route::resource('document-codes', DocumentCodeController::class)
             ->only(['index', 'create', 'store']);
 
-        // Work Units
-        // Route::resource('work-units', WorkUnitController::class)
-        //     ->only(['index', 'create', 'store']);
 
-        // Users
        Route::resource('user', AdminUserController::class);
        Route::resource('department', DepartmentController::class);
 
