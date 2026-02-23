@@ -12,7 +12,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DepartmentController;
 // Halaman login
 Route::get('/', function () {
-    return view('auth.login');
+    return redirect()->route('login');
 });
 
 // ============================
