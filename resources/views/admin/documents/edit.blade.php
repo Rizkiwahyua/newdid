@@ -40,12 +40,12 @@
         </div>
 
         <div class="mb-3">
-            <label>Unit Kerja</label>
-            <select name="work_unit_id" class="w-full border px-3 py-2">
-                @foreach ($units as $unit)
-                    <option value="{{ $unit->id }}"
-                        {{ $document->work_unit_id == $unit->id ? 'selected' : '' }}>
-                        {{ $unit->name }}
+            <label>Departemen</label>
+            <select name="department" class="w-full border px-3 py-2">
+                @foreach ($departments as $department)
+                    <option value="{{ $department->id }}"
+                        {{ $document->departments == $department->id ? 'selected' : '' }}>
+                        {{ $department->name }}
                     </option>
                 @endforeach
             </select>
