@@ -36,10 +36,9 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('/dashboard', [AdminController::class, 'index'])
             ->name('dashboard'); // nama route = admin.dashboard
 
-        // Documents
         Route::resource('documents', DocumentController::class)
-            ->only(['index', 'create', 'store', 'edit', 'update']);
-
+            ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+            
         // Document Categories
         Route::resource('document-categories', DocumentCategoryController::class)
             ->only(['index', 'create', 'store']);
@@ -49,8 +48,8 @@ Route::middleware(['auth', 'role:admin'])
             ->only(['index', 'create', 'store']);
 
 
-      Route::resource('user', AdminUserController::class);
-       Route::resource('department', DepartmentController::class);
+        Route::resource('user', AdminUserController::class);
+        Route::resource('department', DepartmentController::class);
 
 
         // Users
