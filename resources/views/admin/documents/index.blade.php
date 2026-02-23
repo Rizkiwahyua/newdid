@@ -35,19 +35,11 @@
                 </div>
 
             </div>
-
-            <!-- ================= TABLE ================= -->
             <div class="overflow-x-auto">
                 <table class="w-full mt-4 border">
-                    <th class="border p-2">Aksi</th>
-                    <td class="border p-2">
-                        <a href="{{ route('admin.documents.edit', $doc->id) }}"
-                            class="bg-yellow-500 text-white px-3 py-1 rounded text-sm">
-                            Edit
-                        </a>
-                    </td>
                     <thead>
                         <tr class="bg-gray-100">
+                            <th class="border p-2">Aksi</th>
                             <th class="border p-2">Judul</th>
                             <th class="border p-2">Kategori</th>
                             <th class="border p-2">Kode</th>
@@ -59,20 +51,29 @@
                             <th class="border p-2">Keterangan</th>
                         </tr>
                     </thead>
+
                     <tbody>
-                        @foreach ($documents as $doc)
+                        @forelse ($documents as $doc)
                             <tr>
+                                <td class="border p-2">
+                                    <a href="{{ route('admin.documents.edit', $doc->id) }}"
+                                        class="bg-yellow-500 text-white px-3 py-1 rounded text-sm">
+                                        Edit
+                                    </a>
+                                </td>
+
                                 <td class="border p-2">{{ $doc->title }}</td>
-                                <td class="border p-2">{{ $doc->category->name }}</td>
-                                <td class="border p-2">{{ $doc->code->code }}</td>
-                                <td class="border p-2">{{ $doc->department->name }}</td>
+                                <td class="border p-2">{{ $doc->category->name ?? '-' }}</td>
+                                <td class="border p-2">{{ $doc->code->code ?? '-' }}</td>
+                                <td class="border p-2">{{ $doc->department->name ?? '-' }}</td>
                                 <td class="border p-2">{{ $doc->document_number }}</td>
                                 <td class="border p-2">{{ $doc->revision }}</td>
+
                                 <td class="border p-2 text-center">
                                     @if ($doc->file_document)
                                         <a href="{{ asset($doc->file_document) }}" target="_blank"
                                             class="bg-green-500 text-white px-3 py-1 rounded text-sm">
-                                            Lihat PDF
+                                            Lihat File
                                         </a>
                                     @else
                                         <span class="text-gray-400 text-sm">Tidak Ada File</span>
@@ -82,8 +83,14 @@
                                 <td class="border p-2">{{ $doc->document_date }}</td>
                                 <td class="border p-2">{{ $doc->description }}</td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="10" class="text-center p-4 text-gray-500">
+                                    Tidak ada data dokumen
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
-        @endsection
+            {{-- @endsection --}}
