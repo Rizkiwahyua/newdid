@@ -38,7 +38,7 @@ Route::middleware(['auth', 'role:admin'])
 
         // Documents
         Route::resource('documents', DocumentController::class)
-            ->only(['index', 'create', 'store']);
+            ->only(['index', 'create', 'store', 'edit', 'update']);
 
         // Document Categories
         Route::resource('document-categories', DocumentCategoryController::class)
@@ -53,9 +53,8 @@ Route::middleware(['auth', 'role:admin'])
         //     ->only(['index', 'create', 'store']);
 
         // Users
-       Route::resource('user', AdminUserController::class);
-       Route::resource('department', DepartmentController::class);
-
+        Route::resource('user', AdminUserController::class);
+        Route::resource('department', DepartmentController::class);
     });
 
 // ============================

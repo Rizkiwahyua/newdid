@@ -27,43 +27,43 @@ class DocumentController extends Controller
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        'title'                => 'required|string|max:255',
-        'document_category_id' => 'required',
-        'document_code_id'     => 'required',
-        'department_id'        => 'required',
-        'document_number'      => 'nullable|string|max:255',
-        'revision'             => 'nullable|string|max:50',
-        'document_date'        => 'nullable|date',
-        'description'          => 'nullable|string',
-        'file_document'        => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:2048',
-    ]);
+    {
+        $request->validate([
+            'title'                => 'required|string|max:255',
+            'document_category_id' => 'required',
+            'document_code_id'     => 'required',
+            'department_id'        => 'required',
+            'document_number'      => 'nullable|string|max:255',
+            'revision'             => 'nullable|string|max:50',
+            'document_date'        => 'nullable|date',
+            'description'          => 'nullable|string',
+            'file_document'        => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:2048',
+        ]);
 
-    $data = $request->except('file_document');
+        $data = $request->except('file_document');
 
-    if ($request->hasFile('file_document')) {
+        if ($request->hasFile('file_document')) {
 
-        $file = $request->file('file_document');
+            $file = $request->file('file_document');
 
-        $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
-        // Pastikan folder ada
-        $destinationPath = public_path('documents');
-        if (!file_exists($destinationPath)) {
-            mkdir($destinationPath, 0755, true);
+            // Pastikan folder ada
+            $destinationPath = public_path('documents');
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+
+            $file->move($destinationPath, $filename);
+
+            $data['file_document'] = 'documents/' . $filename;
         }
 
-        $file->move($destinationPath, $filename);
+        Document::create($data);
 
-        $data['file_document'] = 'documents/' . $filename;
+        return redirect()->route('admin.documents.index')
+            ->with('success', 'Dokumen berhasil ditambahkan');
     }
-
-    Document::create($data);
-
-    return redirect()->route('admin.documents.index')
-                     ->with('success', 'Dokumen berhasil ditambahkan');
-}
 
 
     public function edit(Document $document)
@@ -77,59 +77,58 @@ class DocumentController extends Controller
     }
 
     public function update(Request $request, Document $document)
-{
-    $request->validate([
-        'title'                => 'required|string|max:255',
-        'document_category_id' => 'required',
-        'document_code_id'     => 'required',
-        'department_id'        => 'required',
-        'document_number'      => 'nullable|string|max:255',
-        'revision'             => 'nullable|string|max:50',
-        'document_date'        => 'nullable|date',
-        'description'          => 'nullable|string',
-        'file_document'        => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:2048',
-    ]);
+    {
+        $request->validate([
+            'title'                => 'required|string|max:255',
+            'document_category_id' => 'required',
+            'document_code_id'     => 'required',
+            'department_id'        => 'required',
+            'document_number'      => 'nullable|string|max:255',
+            'revision'             => 'nullable|string|max:50',
+            'document_date'        => 'nullable|date',
+            'description'          => 'nullable|string',
+            'file_document'        => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:2048',
+        ]);
 
-    $data = $request->except('file_document');
+        $data = $request->except('file_document');
 
-    if ($request->hasFile('file_document')) {
+        if ($request->hasFile('file_document')) {
 
-        // Hapus file lama
+            // Hapus file lama
+            if ($document->file_document && file_exists(public_path($document->file_document))) {
+                unlink(public_path($document->file_document));
+            }
+
+            $file = $request->file('file_document');
+
+            $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+            $destinationPath = public_path('documents');
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+
+            $file->move($destinationPath, $filename);
+
+            $data['file_document'] = 'documents/' . $filename;
+        }
+
+        $document->update($data);
+
+        return redirect()->route('admin.documents.index')
+            ->with('success', 'Dokumen berhasil diperbarui');
+    }
+
+
+    public function destroy(Document $document)
+    {
         if ($document->file_document && file_exists(public_path($document->file_document))) {
             unlink(public_path($document->file_document));
         }
 
-        $file = $request->file('file_document');
+        $document->delete();
 
-        $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-
-        $destinationPath = public_path('documents');
-        if (!file_exists($destinationPath)) {
-            mkdir($destinationPath, 0755, true);
-        }
-
-        $file->move($destinationPath, $filename);
-
-        $data['file_document'] = 'documents/' . $filename;
+        return redirect()->route('admin.documents.index')
+            ->with('success', 'Dokumen berhasil dihapus');
     }
-
-    $document->update($data);
-
-    return redirect()->route('admin.documents.index')
-                     ->with('success', 'Dokumen berhasil diperbarui');
-}
-
-
-    public function destroy(Document $document)
-{
-    if ($document->file_document && file_exists(public_path($document->file_document))) {
-        unlink(public_path($document->file_document));
-    }
-
-    $document->delete();
-
-    return redirect()->route('admin.documents.index')
-                     ->with('success', 'Dokumen berhasil dihapus');
-}
-
 }

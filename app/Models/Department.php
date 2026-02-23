@@ -18,8 +18,8 @@ class Department extends Model
     }
 
     public function documents()
-{
-    return $this->hasMany(Document::class);
-}
+    {
+        return $this->hasMany(Document::class);
+    }
 
-}
+    }
