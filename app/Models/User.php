@@ -22,9 +22,9 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'department_name', // tambahkan ini
+        'department_name',
+        'no_badge',
     ];
-
     /**
      * The attributes that should be hidden for serialization.
      *
