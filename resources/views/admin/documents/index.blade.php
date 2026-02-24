@@ -48,7 +48,6 @@
                         <th class="border p-2">Departemen</th>
                         <th class="border p-2">Nomor Dokumen</th>
                         <th class="border p-2">Revisi</th>
-                        <th class="border p-2">File</th>
                         <th class="border p-2">Tanggal</th>
                         <th class="border p-2">Keterangan</th>
                     </tr>
@@ -60,17 +59,26 @@
                             <td class="border p-2">
                                 <a href="{{ route('admin.documents.edit', $doc->id) }}"
                                     class="bg-yellow-500 text-white px-3 py-1 rounded text-sm">
-                                    Edit
+                                    ✏
                                 </a>
-                                 <form action="{{ route('admin.documents.destroy', $doc->id) }}" method="POST"
-                                class="inline-block" onsubmit="return confirm('Yakin ingin menghapus dokumen ini?')">
-                                @csrf
-                                @method('DELETE')
-
-                                <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded text-sm">
-                                    Hapus
-                                </button>
-                            </form>
+                                <form action="{{ route('admin.documents.destroy', $doc->id) }}" method="POST"
+                                    class="inline-block" onsubmit="return confirm('Yakin ingin menghapus dokumen ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded text-sm">
+                                        🗑
+                                    </button>
+                                </form>
+                                @if ($doc->file_document)
+                                    <a href="{{ asset($doc->file_document) }}" target="_blank"
+                                        class="bg-green-500 text-white px-3 py-1 rounded text-sm">
+                                        Lihat
+                                    </a>
+                                @else
+                                    <span class="text-gray-400 text-sm">
+                                        Tidak Ada File
+                                    </span>
+                                @endif
                             </td>
 
                             <td class="border p-2">{{ $doc->title }}</td>
@@ -80,22 +88,9 @@
                             <td class="border p-2">{{ $doc->document_number }}</td>
                             <td class="border p-2">{{ $doc->revision }}</td>
 
-                            <td class="border p-2 text-center">
-                                @if ($doc->file_document)
-                                    <a href="{{ asset($doc->file_document) }}" target="_blank"
-                                        class="bg-green-500 text-white px-3 py-1 rounded text-sm">
-                                        Lihat File
-                                    </a>
-                                @else
-                                    <span class="text-gray-400 text-sm">
-                                        Tidak Ada File
-                                    </span>
-                                @endif
-                            </td>
-
                             <td class="border p-2">{{ $doc->document_date }}</td>
                             <td class="border p-2">{{ $doc->description }}</td>
-                           
+
                         </tr>
                     @empty
                         <tr>
