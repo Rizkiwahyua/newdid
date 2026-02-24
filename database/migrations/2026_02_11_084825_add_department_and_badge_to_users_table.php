@@ -4,25 +4,28 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
-
-    public function up(): void
+return new class extends Migration
+{
+    public function up()
     {
         Schema::table('users', function (Blueprint $table) {
 
-            // hanya tambah no badge
-            if (!Schema::hasColumn('users', 'no_badge')) {
-                $table->string('no_badge')->nullable()->unique();
+            // Tambah kolom string
+            $table->string('department_name')->nullable();
+
+            // Kalau ada foreign key department_id, drop dulu
+            if (Schema::hasColumn('users', 'department_id')) {
+
+                $table->dropForeign(['department_id']); // kalau ada FK
+                $table->dropColumn('department_id');
             }
-
         });
     }
 
-    public function down(): void
+    public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('no_badge');
+            $table->dropColumn('department_name');
         });
     }
-
 };

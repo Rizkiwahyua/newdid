@@ -1,213 +1,77 @@
 @extends('layouts.app')
 
-@section('title', 'Data Departemen')
-
 @section('content')
 
+<div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-bold">Departemen</h2>
 
-
-
-<div class="max-w-6xl mx-auto">
-
-    {{-- HEADER --}}
-    <div class="bg-indigo-600 text-white px-6 py-4 rounded-t-xl">
-        <h2 class="font-semibold text-lg">Data Departemen</h2>
-    </div>
-
-    {{-- CARD --}}
-    <div class="bg-white rounded-b-xl shadow border border-gray-100 p-6">
-
-        {{-- TOP BAR --}}
-        <div class="mb-6 space-y-4">
-
-    {{-- Row 1 --}}
-    <div class="flex justify-between items-center">
-
-        <div class="text-sm text-gray-600">
-            Show
-            <select class="border border-gray-300 rounded px-2 py-1 text-sm mx-1">
-                <option>10</option>
-                <option>20</option>
-            </select>
-            entries
-        </div>
-
-        <a href="{{ route('admin.department.create') }}"
-           class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-indigo-700 shadow hover:shadow-md transition">
-            Tambah Departemen
-        </a>
-
-    </div>
-
-    {{-- Row 2 --}}
-    <div class="flex justify-end">
-        <div class="flex border border-gray-300 rounded-lg overflow-hidden w-64">
-            <input type="text"
-                   id="searchInput"
-                   placeholder="Search..."
-                   class="px-3 py-2 text-sm focus:outline-none w-full">
-            <button class="px-4 bg-indigo-500 text-white text-sm">
-                Cari
-            </button>
-        </div>
-
-
-        </div>
-
-        {{-- TABLE --}}
-        <div class="overflow-x-auto">
-            <table class="w-full text-sm border-collapse">
-
-                <thead class="bg-gray-50 text-gray-600 uppercase text-xs">
-                    <tr>
-                        <th class="px-4 py-3 text-left">No</th>
-                        <th class="px-4 py-3 text-left">Nama</th>
-                        <th class="px-4 py-3 text-left">Status</th>
-                        <th class="px-4 py-3 text-left">Action</th>
-                    </tr>
-                </thead>
-
-                <tbody class="text-gray-700">
-
-                @forelse($departments as $dept)
-                <tr class="border-t hover:bg-gray-50 transition">
-
-                    <td class="px-4 py-3">
-                        {{ $loop->iteration }}
-                    </td>
-
-                    <td class="px-4 py-3">
-                        {{ $dept->name }}
-                    </td>
-
-                    <td class="px-4 py-3">
-                        @if($dept->is_active)
-                            <span class="px-3 py-1 text-xs bg-green-100 text-green-700 rounded-full">
-                                Aktif
-                            </span>
-                        @else
-                            <span class="px-3 py-1 text-xs bg-red-100 text-red-700 rounded-full">
-                                Tidak Aktif
-                            </span>
-                        @endif
-                    </td>
-
-                    <td class="px-4 py-3">
-                        <div class="flex gap-2">
-
-                            <a href="{{ route('admin.department.show',$dept->id) }}"
-                               class="bg-green-500 text-white px-2 py-1 rounded text-xs hover:bg-green-600">
-                                <i class="bi bi-eye-fill"></i>
-                            </a>
-
-                            <a href="{{ route('admin.department.edit',$dept->id) }}"
-                               class="bg-yellow-500 text-white px-2 py-1 rounded text-xs hover:bg-yellow-600">
-                                <i class="bi bi-pencil-square"></i>
-                            </a>
-
-                            <button type="button"
-                                    onclick="confirmDelete({{ $dept->id }})"
-                                    class="bg-red-500 text-white px-2 py-1 rounded text-xs hover:bg-red-600">
-                                <i class="bi bi-trash-fill"></i>
-                            </button>
-
-                            <form id="delete-form-{{ $dept->id }}"
-                                  action="{{ route('admin.department.destroy',$dept->id) }}"
-                                  method="POST"
-                                  class="hidden">
-                                @csrf
-                                @method('DELETE')
-                            </form>
-
-                        </div>
-                    </td>
-
-                </tr>
-
-                @empty
-                <tr>
-                    <td colspan="4" class="text-center py-6 text-gray-400">
-                        Tidak ada data
-                    </td>
-                </tr>
-                @endforelse
-
-                </tbody>
-
-            </table>
-        </div>
-
-    </div>
-
+    <a href="{{ route('admin.department.create') }}"
+       class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow">
+        + Tambah Departemen
+    </a>
 </div>
 
+@if(session('success'))
+    <div class="bg-green-100 text-green-700 p-3 mb-4 rounded">
+        {{ session('success') }}
+    </div>
+@endif
 
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
+@forelse ($departments as $department)
 
-<!-- ================= STYLE FILTER ================= -->
-<style>
-.filter-btn{
-    padding:6px 14px;
-    border-radius:10px;
-    transition:.2s;
-}
-.filter-btn:hover{
-    background:#f3f4f6;
-}
-.filter-btn.active{
-    background:#6366f1;
-    color:white;
-}
-</style>
+    <div class="bg-white rounded-xl shadow p-6 border hover:shadow-lg transition">
 
-<script>
-const buttons = document.querySelectorAll('.filter-btn');
-const rows = document.querySelectorAll('.doc-row');
-const searchInput = document.getElementById('searchInput');
+        <h3 class="text-xl font-bold text-indigo-600">
+            {{ $department->name }}
+        </h3>
 
-let activeFilter = 'all';
+        <div class="my-4">
+            <span class="text-sm text-gray-600">
+                Total Dokumen:
+            </span>
 
-buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        buttons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+            <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-semibold">
+                {{ $department->documents_count }}
+            </span>
+        </div>
 
-        activeFilter = btn.dataset.filter;
-        filterTable();
-    });
-});
+        <div class="flex gap-2">
 
-searchInput.addEventListener('keyup', filterTable);
+            <a href="{{ route('admin.department.show', $department->id) }}"
+               class="flex-1 text-center bg-indigo-500 text-white px-3 py-2 rounded text-sm">
+                Show
+            </a>
 
-function filterTable(){
-    const keyword = searchInput.value.toLowerCase();
+            <a href="{{ route('admin.department.edit', $department->id) }}"
+               class="flex-1 text-center bg-yellow-500 text-white px-3 py-2 rounded text-sm">
+                Edit
+            </a>
 
-    rows.forEach(row => {
-        const matchCategory = activeFilter === 'all' || row.dataset.category === activeFilter;
-        const matchSearch = row.innerText.toLowerCase().includes(keyword);
+            <form action="{{ route('admin.department.destroy', $department->id) }}"
+                  method="POST"
+                  onsubmit="return confirm('Yakin ingin menghapus departemen ini?')"
+                  class="flex-1">
+                @csrf
+                @method('DELETE')
 
-        row.style.display = (matchCategory && matchSearch) ? '' : 'none';
-    });
-}
-</script>
+                <button type="submit"
+                        class="w-full bg-red-500 text-white px-3 py-2 rounded text-sm">
+                    Hapus
+                </button>
+            </form>
 
-<script>
-function confirmDelete(id) {
-    Swal.fire({
-        title: 'Yakin ingin hapus?',
-        text: "Data tidak bisa dikembalikan!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#6b7280',
-        confirmButtonText: 'Ya, hapus!',
-        cancelButtonText: 'Batal'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            document.getElementById('delete-form-' + id).submit();
-        }
-    })
-}
-</script>
+        </div>
+
+    </div>
+
+@empty
+    <div class="col-span-full text-center text-gray-500">
+        Belum ada departemen
+    </div>
+@endforelse
+
+</div>
 
 @endsection

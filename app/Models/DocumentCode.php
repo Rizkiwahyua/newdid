@@ -13,6 +13,6 @@ class DocumentCode extends Model
 
     public function documents()
     {
-        return $this->hasMany(Document::class);
+        return $this->hasMany(Document::class, 'document_code_id');
     }
 }

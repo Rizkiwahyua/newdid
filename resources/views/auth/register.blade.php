@@ -23,74 +23,45 @@
                     <!-- Name -->
                     <div>
                         <x-input-label for="name" :value="__('Name')" class="text-indigo-700" />
-                        <x-text-input
-                            id="name"
-                            type="text"
-                            name="name"
-                            :value="old('name')"
-                            required
-                            autofocus
+                        <x-text-input id="name" type="text" name="name" :value="old('name')" required autofocus
                             autocomplete="name"
-                            class="mt-1 block w-full rounded-xl border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-300 focus:ring-opacity-50"
-                        />
+                            class="mt-1 block w-full rounded-xl border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-300 focus:ring-opacity-50" />
                         <x-input-error :messages="$errors->get('name')" class="mt-1" />
                     </div>
 
                     <!-- Email -->
                     <div>
                         <x-input-label for="email" :value="__('Email Address')" class="text-indigo-700" />
-                        <x-text-input
-                            id="email"
-                            type="email"
-                            name="email"
-                            :value="old('email')"
-                            required
+                        <x-text-input id="email" type="email" name="email" :value="old('email')" required
                             autocomplete="username"
-                            class="mt-1 block w-full rounded-xl border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-300 focus:ring-opacity-50"
-                        />
+                            class="mt-1 block w-full rounded-xl border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-300 focus:ring-opacity-50" />
                         <x-input-error :messages="$errors->get('email')" class="mt-1" />
                     </div>
 
                     <!-- Department -->
-<div>
-    <x-input-label for="department_id" value="Departemen" class="text-indigo-700" />
+                    <div class="mt-4">
+                        <x-input-label for="department_name" value="Departemen" />
+                        <x-text-input id="department_name" class="block mt-1 w-full" type="text"
+                            name="department_name" :value="old('department_name')" required />
+                        <x-input-error :messages="$errors->get('department_name')" class="mt-2" />
+                    </div>
 
-    <select name="department_id" id="department_id"
-        class="mt-1 block w-full border-gray-300 rounded-xl focus:border-indigo-500 focus:ring focus:ring-indigo-300">
+                    <!-- No Badge -->
+                    <div>
+                        <x-input-label for="no_badge" value="No Badge" class="text-indigo-700" />
 
-        <option value="">-- Pilih Departemen --</option>
+                        <x-text-input id="no_badge" type="text" name="no_badge" :value="old('no_badge')"
+                            class="mt-1 block w-full rounded-xl border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-300" />
 
-        @foreach($departments as $dept)
-            <option value="{{ $dept->id }}">
-                {{ $dept->name }}
-            </option>
-        @endforeach
-    </select>
-
-    <x-input-error :messages="$errors->get('department_id')" class="mt-1" />
-</div>
-
-
-<!-- No Badge -->
-<div>
-    <x-input-label for="no_badge" value="No Badge" class="text-indigo-700" />
-
-    <x-text-input
-        id="no_badge"
-        type="text"
-        name="no_badge"
-        :value="old('no_badge')"
-        class="mt-1 block w-full rounded-xl border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-300"
-    />
-
-    <x-input-error :messages="$errors->get('no_badge')" class="mt-1" />
-</div>
+                        <x-input-error :messages="$errors->get('no_badge')" class="mt-1" />
+                    </div>
 
 
                     <!-- Role -->
                     <div>
                         <x-input-label for="role" value="Role" class="text-indigo-700" />
-                        <select name="role" id="role" class="mt-1 block w-full border-gray-300 rounded-xl focus:border-indigo-500 focus:ring focus:ring-indigo-300 focus:ring-opacity-50">
+                        <select name="role" id="role"
+                            class="mt-1 block w-full border-gray-300 rounded-xl focus:border-indigo-500 focus:ring focus:ring-indigo-300 focus:ring-opacity-50">
                             <option value="user">User</option>
                             <option value="admin">Admin</option>
                         </select>
@@ -100,35 +71,25 @@
                     <!-- Password -->
                     <div>
                         <x-input-label for="password" :value="__('Password')" class="text-indigo-700" />
-                        <x-text-input
-                            id="password"
-                            type="password"
-                            name="password"
-                            required
+                        <x-text-input id="password" type="password" name="password" required
                             autocomplete="new-password"
-                            class="mt-1 block w-full rounded-xl border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-300 focus:ring-opacity-50"
-                        />
+                            class="mt-1 block w-full rounded-xl border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-300 focus:ring-opacity-50" />
                         <x-input-error :messages="$errors->get('password')" class="mt-1" />
                     </div>
 
                     <!-- Confirm Password -->
                     <div>
                         <x-input-label for="password_confirmation" :value="__('Confirm Password')" class="text-indigo-700" />
-                        <x-text-input
-                            id="password_confirmation"
-                            type="password"
-                            name="password_confirmation"
-                            required
+                        <x-text-input id="password_confirmation" type="password" name="password_confirmation" required
                             autocomplete="new-password"
-                            class="mt-1 block w-full rounded-xl border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-300 focus:ring-opacity-50"
-                        />
+                            class="mt-1 block w-full rounded-xl border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-300 focus:ring-opacity-50" />
                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-1" />
                     </div>
 
                     <!-- Submit & Login Link -->
                     <div class="flex items-center justify-between mt-3">
                         <a href="{{ route('login') }}"
-                           class="text-sm text-indigo-600 hover:text-indigo-900 underline transition-colors">
+                            class="text-sm text-indigo-600 hover:text-indigo-900 underline transition-colors">
                             Already registered?
                         </a>
 

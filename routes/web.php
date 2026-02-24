@@ -38,14 +38,14 @@ Route::middleware(['auth', 'role:admin'])
 
         Route::resource('documents', DocumentController::class)
             ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
-            
+
         // Document Categories
         Route::resource('document-categories', DocumentCategoryController::class)
             ->only(['index', 'create', 'store']);
 
         // Document Codes
         Route::resource('document-codes', DocumentCodeController::class)
-            ->only(['index', 'create', 'store']);
+            ->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy']);
 
 
         Route::resource('user', AdminUserController::class);

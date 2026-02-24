@@ -9,7 +9,8 @@ class DepartmentController extends Controller
 {
     public function index()
     {
-        $departments = Department::latest()->get();
+        $departments = Department::withCount('documents')->get();
+
         return view('admin.department.index', compact('departments'));
     }
 
@@ -35,9 +36,10 @@ class DepartmentController extends Controller
 
     public function show(Department $department)
     {
-        return view('admin.department.show', compact('department'));
-    }
+        $documents = $department->documents()->with(['category', 'code'])->get();
 
+        return view('admin.department.show', compact('department', 'documents'));
+    }
     public function edit(Department $department)
     {
         return view('admin.department.edit', compact('department'));
@@ -66,4 +68,3 @@ class DepartmentController extends Controller
             ->with('success', 'Department berhasil dihapus');
     }
 }
-
