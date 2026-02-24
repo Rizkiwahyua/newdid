@@ -36,9 +36,9 @@ class DepartmentController extends Controller
 
     public function show(Department $department)
     {
-        $documents = $department->documents()->with(['category', 'code'])->get();
+        $department->load('documents');
 
-        return view('admin.department.show', compact('department', 'documents'));
+        return view('admin.department.show', compact('department'));
     }
     public function edit(Department $department)
     {

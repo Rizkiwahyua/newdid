@@ -1,90 +1,54 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="bg-indigo-600 text-white px-6 py-3 rounded-t-xl">
+        <h2 class="font-semibold text-lg">
+            Dokumen Departemen: {{ $department->name }}
+        </h2>
+    </div>
 
-<div class="max-w-4xl mx-auto">
+    <div class="bg-white p-5 shadow rounded-b-xl">
 
-    <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+        <p class="mb-4">
+            Total Dokumen:
+            <span class="font-bold">
+                {{ $department->documents->count() }}
+            </span>
+        </p>
 
-        {{-- Header --}}
-        <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 px-6 py-5">
-            <div class="flex items-center gap-4">
+        <div class="overflow-x-auto">
+            <table class="w-full border">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="border p-2">Judul</th>
+                        <th class="border p-2">Kategori</th>
+                        <th class="border p-2">Departemen</th>
+                        <th class="border p-2">Nomor Dokumen</th>
+                        <th class="border p-2">Revisi</th>
+                        <th class="border p-2">Tanggal</th>
+                    </tr>
+                </thead>
 
-                <div class="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center text-white text-lg font-bold">
-                    {{ strtoupper(substr($department->name,0,1)) }}
-                </div>
-
-                <div>
-                    <h2 class="text-white text-lg font-semibold">
-                        {{ $department->name }}
-                    </h2>
-                    <p class="text-indigo-100 text-xs">
-                        Detail Informasi Department
-                    </p>
-                </div>
-
-            </div>
-        </div>
-
-        {{-- Body --}}
-        <div class="p-6">
-
-            <div class="grid md:grid-cols-2 gap-4">
-
-                <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                    <p class="text-xs text-gray-400 mb-1">Nama Department</p>
-                    <p class="font-semibold text-gray-800">
-                        {{ $department->name }}
-                    </p>
-                </div>
-
-                <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                    <p class="text-xs text-gray-400 mb-2">Status</p>
-
-                    @if($department->is_active)
-                        <span class="px-3 py-1 text-xs font-semibold bg-emerald-100 text-emerald-600 rounded-full">
-                            Aktif
-                        </span>
-                    @else
-                        <span class="px-3 py-1 text-xs font-semibold bg-red-100 text-red-600 rounded-full">
-                            Tidak Aktif
-                        </span>
-                    @endif
-                </div>
-
-            </div>
-
-            {{-- Row bawah --}}
-            <div class="grid md:grid-cols-2 gap-4 mt-4">
-
-                <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                    <p class="text-xs text-gray-400 mb-1">Dibuat</p>
-                    <p class="font-semibold text-gray-800 text-sm">
-                        {{ $department->created_at->format('d M Y H:i') }}
-                    </p>
-                </div>
-
-                <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                    <p class="text-xs text-gray-400 mb-1">Terakhir Update</p>
-                    <p class="font-semibold text-gray-800 text-sm">
-                        {{ $department->updated_at->format('d M Y H:i') }}
-                    </p>
-                </div>
-
-            </div>
-
-            {{-- Footer --}}
-            <div class="mt-6 border-t pt-4 text-right">
-                <a href="{{ route('admin.department.index') }}"
-                   class="inline-flex items-center px-5 py-2 bg-gray-900 text-white text-sm rounded-lg hover:bg-black transition">
-                    ← Kembali
-                </a>
-            </div>
-
+                <tbody>
+                    @forelse($department->documents as $doc)
+                        <tr>
+                            <td class="border p-2">{{ $doc->title }}</td>
+                            <td class="border p-2">{{ $doc->category->name ?? '-' }}</td>
+                            <td class="border p-2">{{ $doc->department->name ?? '-' }}</td>
+                            <td class="border p-2">{{ $doc->document_number }}</td>
+                            <td class="border p-2">{{ $doc->revision }}</td>
+                            <td class="border p-2">{{ $doc->document_date }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="3" class="text-center p-4 text-gray-500">
+                                Tidak ada dokumen
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
 
     </div>
-
-</div>
-
 @endsection

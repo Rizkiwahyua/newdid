@@ -21,4 +21,8 @@ class Department extends Model
     {
         return $this->hasMany(Document::class, 'department_id');
     }
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
+    }
 }
