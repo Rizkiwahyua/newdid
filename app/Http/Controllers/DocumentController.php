@@ -29,7 +29,7 @@ class DocumentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'                => 'required|string|max:255',
+            'title'                => 'required|string|max:300',
             'document_category_id' => 'required',
             'document_code_id'     => 'required',
             'department_id'        => 'required',
@@ -37,7 +37,7 @@ class DocumentController extends Controller
             'revision'             => 'nullable|string|max:50',
             'document_date'        => 'nullable|date',
             'description'          => 'nullable|string',
-            'file_document'        => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:2048',
+            'file_document'        => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:10000',
         ]);
 
         $data = $request->except('file_document');
@@ -79,7 +79,7 @@ class DocumentController extends Controller
     public function update(Request $request, Document $document)
     {
         $request->validate([
-            'title'                => 'required|string|max:255',
+            'title'                => 'required|string|max:300',
             'document_category_id' => 'required',
             'document_code_id'     => 'required',
             'department_id'        => 'required',
@@ -87,7 +87,7 @@ class DocumentController extends Controller
             'revision'             => 'nullable|string|max:50',
             'document_date'        => 'nullable|date',
             'description'          => 'nullable|string',
-            'file_document'        => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:2048',
+            'file_document'        => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:10000',
         ]);
 
         $data = $request->except('file_document');
