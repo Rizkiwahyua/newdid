@@ -19,44 +19,38 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-   
+
     /**
      * Handle an incoming registration request.
      */
 
     public function create(): View
-{
-    $departments = Department::orderBy('name')->get();
+    {
+        $departments = Department::orderBy('name')->get();
 
-    return view('auth.register', compact('departments'));
-}
+        return view('auth.register', compact('departments'));
+    }
 
     public function store(Request $request): RedirectResponse
-{
-    $validated = $request->validate([
-        'name' => ['required', 'string', 'max:255'],
-        'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
-        'password' => ['required', 'confirmed', Rules\Password::defaults()],
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'department_name' => ['nullable', 'string', 'max:255'],
+            'no_badge' => ['nullable', 'string', 'max:255'],
+        ]);
 
-        // ✅ tambahan baru
-        'department_id' => ['nullable', 'exists:departments,id'],
-        'no_badge' => ['nullable', 'string', 'max:50', 'unique:users,no_badge'],
-    ]);
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'department_name' => $request->department_name,
+            'no_badge' => $request->no_badge,
+            'role' => 'user', // paksa semua register jadi user
+        ]);
 
-    User::create([
-        'name' => $validated['name'],
-        'email' => $validated['email'],
-        'password' => Hash::make($validated['password']),
-
-        'role' => $request->role ?? 'user',
-
-        // ✅ simpan data baru
-        'department_id' => $validated['department_id'] ?? null,
-        'no_badge' => $validated['no_badge'] ?? null,
-    ]);
-
-    return redirect('/')
-        ->with('success', 'Registrasi berhasil, silakan login');
-}
-
+        return redirect('/')
+            ->with('success', 'Registrasi berhasil, silakan login');
+    }
 }
