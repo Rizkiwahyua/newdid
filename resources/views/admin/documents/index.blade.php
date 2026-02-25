@@ -91,34 +91,53 @@
             $currentCategory = request('category', 'all');
         @endphp
 
-        <div class="flex gap-4 mb-6">
+        <div class="flex gap-3 mb-6 flex-wrap">
 
-            <a href="{{ route('admin.documents.index') }}" class="px-4 py-2 rounded-lg bg-blue-600 text-white">
+            <!-- Semua -->
+            <a href="{{ route('admin.documents.index') }}"
+                class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition
+        {{ $currentCategory == 'all' ? 'bg-blue-600 text-white shadow' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
+                <i class="bi bi-grid"></i>
                 Semua
             </a>
 
+            <!-- Ratifikasi -->
             <a href="{{ route('admin.documents.index', ['category' => 'ratifikasi']) }}"
-                class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300">
+                class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition
+        {{ $currentCategory == 'ratifikasi' ? 'bg-blue-600 text-white shadow' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
+                <i class="bi bi-patch-check"></i>
                 Ratifikasi
             </a>
 
+            <!-- Pedoman -->
             <a href="{{ route('admin.documents.index', ['category' => 'pedoman']) }}"
-                class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300">
+                class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition
+        {{ $currentCategory == 'pedoman' ? 'bg-blue-600 text-white shadow' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
+                <i class="bi bi-journal-text"></i>
                 Pedoman
             </a>
 
+            <!-- Prosedur -->
             <a href="{{ route('admin.documents.index', ['category' => 'prosedur']) }}"
-                class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300">
+                class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition
+        {{ $currentCategory == 'prosedur' ? 'bg-blue-600 text-white shadow' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
+                <i class="bi bi-diagram-3"></i>
                 Prosedur
             </a>
 
+            <!-- Instruksi Kerja -->
             <a href="{{ route('admin.documents.index', ['category' => 'instruksi-kerja']) }}"
-                class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300">
+                class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition
+        {{ $currentCategory == 'instruksi-kerja' ? 'bg-blue-600 text-white shadow' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
+                <i class="bi bi-gear"></i>
                 Instruksi Kerja
             </a>
 
+            <!-- Formulir -->
             <a href="{{ route('admin.documents.index', ['category' => 'formulir']) }}"
-                class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300">
+                class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition
+        {{ $currentCategory == 'formulir' ? 'bg-blue-600 text-white shadow' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
+                <i class="bi bi-files"></i>
                 Formulir
             </a>
 
