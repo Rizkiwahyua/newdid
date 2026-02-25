@@ -35,7 +35,7 @@
             </div>
         </a>
 
-        <a href="{{ route('admin.documents.byCategory', 'instruksi-kerja') }}"
+        <a href="{{ route('admin.documents.byCategory', 'instruksikerja') }}"
             class="bg-yellow-100 p-4 rounded-xl shadow hover:scale-105 transition block">
             <div class="text-gray-600 text-sm">Instruksi Kerja</div>
             <div class="text-2xl font-bold text-yellow-700">
@@ -89,6 +89,7 @@
 
         @php
             $currentCategory = request('category', 'all');
+            
         @endphp
 
         <div class="flex gap-3 mb-6 flex-wrap">
@@ -126,11 +127,11 @@
             </a>
 
             <!-- Instruksi Kerja -->
-            <a href="{{ route('admin.documents.index', ['category' => 'instruksi-kerja']) }}"
+            <a href="{{ route('admin.documents.index', ['category' => 'instruksikerja']) }}"
                 class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition
-        {{ $currentCategory == 'instruksi-kerja' ? 'bg-blue-600 text-white shadow' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
+        {{ $currentCategory == 'instruksikerja' ? 'bg-blue-600 text-white shadow' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
                 <i class="bi bi-gear"></i>
-                Instruksi Kerja
+                Instruksi Kerja 
             </a>
 
             <!-- Formulir -->
