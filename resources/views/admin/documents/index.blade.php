@@ -89,7 +89,7 @@
 
         @php
             $currentCategory = request('category', 'all');
-            
+
         @endphp
 
         <div class="flex gap-3 mb-6 flex-wrap">
@@ -131,7 +131,7 @@
                 class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition
         {{ $currentCategory == 'instruksikerja' ? 'bg-blue-600 text-white shadow' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }}">
                 <i class="bi bi-gear"></i>
-                Instruksi Kerja 
+                Instruksi Kerja
             </a>
 
             <!-- Formulir -->
@@ -166,12 +166,17 @@
                             <!-- ACTION -->
                             <td class="p-3 flex gap-2">
 
-                                @if ($doc->file_document)
+                                <a href="{{ route('admin.documents.preview', $doc->id) }}"
+                                    class="bg-blue-500 text-white px-2 py-1 rounded text-xs">
+                                    👁
+                                </a>
+                                
+                                {{-- @if ($doc->file_document)
                                     <a href="{{ asset($doc->file_document) }}"
                                         class="bg-green-500 text-white px-2 py-1 rounded text-xs">
                                         ⬇
                                     </a>
-                                @endif
+                                @endif --}}
 
                                 <a href="{{ route('admin.documents.edit', $doc->id) }}"
                                     class="bg-yellow-500 text-white px-2 py-1 rounded text-xs">

@@ -53,10 +53,35 @@ Route::middleware(['auth', 'role:admin'])
         Route::resource('user', AdminUserController::class);
         Route::resource('department', DepartmentController::class);
 
-
         // Users
         Route::resource('user', AdminUserController::class);
         Route::resource('department', DepartmentController::class);
+
+        Route::get(
+            'documents/{document}/preview',
+            [DocumentController::class, 'preview']
+        )->name('documents.preview');
+
+        Route::get(
+            'documents/{document}/stream',
+            [DocumentController::class, 'stream']
+        )->name('documents.stream');
+
+        #recycle bin
+        Route::get(
+            'trash',
+            [DocumentController::class, 'trash']
+        )->name('documents.trash');
+
+        Route::post(
+            'documents/{id}/restore',
+            [DocumentController::class, 'restore']
+        )->name('documents.restore');
+
+        Route::delete(
+            'documents/{id}/force-delete',
+            [DocumentController::class, 'forceDelete']
+        )->name('documents.forceDelete');
     });
 
 // ============================

@@ -36,7 +36,7 @@
 </li>
 
 <!-- Kategori -->
-<li>
+{{-- <li>
     <a href="{{ route('admin.document-categories.index') }}"
        class="group flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300
        {{ request()->routeIs('admin.document-categories.*')
@@ -50,7 +50,7 @@
         </span>
         Kategori
     </a>
-</li>
+</li> --}}
 
 <!-- Kode Dokumen -->
 <li>
@@ -102,6 +102,29 @@
         User
     </a>
 </li>
+
+{{-- hapus --}}
+<li>
+    <a href="{{ route('admin.documents.trash') }}"
+       class="group flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300
+       {{ request()->routeIs('admin.user.*')
+            ? 'bg-white/20 text-white backdrop-blur-md shadow-lg'
+            : 'text-indigo-100 hover:bg-indigo-600 hover:text-white' }}">
+        <span class="w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-300
+            {{ request()->routeIs('admin.user.*')
+                ? 'bg-white text-indigo-700'
+                : 'bg-indigo-600 group-hover:bg-white group-hover:text-indigo-700' }}">
+            <i class="bi bi-people text-lg"></i>
+        </span>
+        🗑 Recycle Bin
+    </a>
+</li>
+
+{{-- <li>
+    <a href="{{ route('admin.documents.trash') }}">
+        🗑 Recycle Bin
+    </a>
+</li> --}}
 
 
     </ul>

@@ -144,6 +144,24 @@ class DocumentController extends Controller
         ]);
     }
 
+    public function preview(Document $document)
+    {
+        return view('admin.documents.preview', compact('document'));
+    }
+
+    public function stream($id)
+    {
+        $document = Document::withTrashed()->findOrFail($id);
+
+        $path = public_path($document->file_document);
+
+        if (!file_exists($path)) {
+            abort(404, 'File tidak ditemukan');
+        }
+
+        return response()->file($path);
+    }
+
     public function update(Request $request, Document $document)
     {
         $request->validate([
@@ -190,13 +208,39 @@ class DocumentController extends Controller
 
     public function destroy(Document $document)
     {
+        $document->delete();
+
+        return redirect()->route('admin.documents.index')
+            ->with('success', 'Dokumen dipindahkan ke Recycle Bin');
+    }
+
+    public function trash()
+    {
+        $documents = Document::onlyTrashed()->latest()->get();
+        return view('admin.documents.trash', compact('documents'));
+    }
+
+    public function restore($id)
+    {
+        $document = Document::onlyTrashed()->findOrFail($id);
+        $document->restore();
+
+        return redirect()->route('admin.documents.trash')
+            ->with('success', 'Dokumen berhasil direstore');
+    }
+
+    public function forceDelete($id)
+    {
+        $document = Document::onlyTrashed()->findOrFail($id);
+
+        // Hapus file permanen
         if ($document->file_document && file_exists(public_path($document->file_document))) {
             unlink(public_path($document->file_document));
         }
 
-        $document->delete();
+        $document->forceDelete();
 
-        return redirect()->route('admin.documents.index')
-            ->with('success', 'Dokumen berhasil dihapus');
+        return redirect()->route('admin.documents.trash')
+            ->with('success', 'Dokumen dihapus permanen');
     }
 }
