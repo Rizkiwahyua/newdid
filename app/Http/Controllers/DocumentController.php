@@ -7,6 +7,7 @@ use App\Models\DocumentCategory;
 use App\Models\DocumentCode;
 use App\Models\Department;
 use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
@@ -15,7 +16,6 @@ class DocumentController extends Controller
     {
         $query = Document::with(['category', 'code', 'department']);
 
-        // Filter berdasarkan kategori
         if ($request->has('category') && $request->category != 'all') {
             $query->whereHas('category', function ($q) use ($request) {
                 $q->where('slug', $request->category);
@@ -24,7 +24,38 @@ class DocumentController extends Controller
 
         $documents = $query->latest()->get();
 
-        return view('admin.documents.index', compact('documents'));
+        // ===== HITUNG STATISTIK =====
+        $totalDocuments = Document::count();
+
+        $ratifikasi = Document::whereHas('category', fn($q) =>
+        $q->where('slug', 'ratifikasi'))->count();
+
+        $pedoman = Document::whereHas('category', fn($q) =>
+        $q->where('slug', 'pedoman'))->count();
+
+        $prosedur = Document::whereHas('category', fn($q) =>
+        $q->where('slug', 'prosedur'))->count();
+
+        $instruksi = Document::whereHas('category', fn($q) =>
+        $q->where('slug', 'instruksi-kerja'))->count();
+
+        $formulir = Document::whereHas('category', fn($q) =>
+        $q->where('slug', 'formulir'))->count();
+
+        $totalDepartments = Department::count();
+        $totalUsers = User::count();
+
+        return view('admin.documents.index', compact(
+            'documents',
+            'totalDocuments',
+            'ratifikasi',
+            'pedoman',
+            'prosedur',
+            'instruksi',
+            'formulir',
+            'totalDepartments',
+            'totalUsers'
+        ));
     }
 
     public function create()

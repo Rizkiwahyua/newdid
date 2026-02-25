@@ -1,6 +1,66 @@
 @extends('layouts.app')
 
 @section('content')
+
+<div class="grid grid-cols-4 gap-4 mb-6">
+
+    <div class="bg-blue-100 p-4 rounded-xl shadow">
+        <div class="text-gray-600 text-sm">Semua Dokumen</div>
+        <div class="text-2xl font-bold text-blue-700">
+            {{ $totalDocuments }}
+        </div>
+    </div>
+
+    <div class="bg-green-100 p-4 rounded-xl shadow">
+        <div class="text-gray-600 text-sm">Ratifikasi</div>
+        <div class="text-2xl font-bold text-green-700">
+            {{ $ratifikasi }}
+        </div>
+    </div>
+
+    <div class="bg-indigo-100 p-4 rounded-xl shadow">
+        <div class="text-gray-600 text-sm">Pedoman</div>
+        <div class="text-2xl font-bold text-indigo-700">
+            {{ $pedoman }}
+        </div>
+    </div>
+
+    <div class="bg-purple-100 p-4 rounded-xl shadow">
+        <div class="text-gray-600 text-sm">Prosedur</div>
+        <div class="text-2xl font-bold text-purple-700">
+            {{ $prosedur }}
+        </div>
+    </div>
+
+    <div class="bg-yellow-100 p-4 rounded-xl shadow">
+        <div class="text-gray-600 text-sm">Instruksi</div>
+        <div class="text-2xl font-bold text-yellow-700">
+            {{ $instruksi }}
+        </div>
+    </div>
+
+    <div class="bg-red-100 p-4 rounded-xl shadow">
+        <div class="text-gray-600 text-sm">Formulir</div>
+        <div class="text-2xl font-bold text-red-700">
+            {{ $formulir }}
+        </div>
+    </div>
+
+    <div class="bg-gray-100 p-4 rounded-xl shadow">
+        <div class="text-gray-600 text-sm">Departemen</div>
+        <div class="text-2xl font-bold text-gray-700">
+            {{ $totalDepartments }}
+        </div>
+    </div>
+
+    <div class="bg-gray-200 p-4 rounded-xl shadow">
+        <div class="text-gray-600 text-sm">Users</div>
+        <div class="text-2xl font-bold text-gray-700">
+            {{ $totalUsers }}
+        </div>
+    </div>
+
+</div>
     <div class="bg-indigo-600 text-white px-6 py-3 rounded-t-xl">
         <h2 class="font-semibold text-lg">Data Dokumen</h2>
     </div>
