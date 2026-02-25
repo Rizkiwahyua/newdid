@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
 {
+
     public function index(Request $request)
     {
         $query = Document::with(['category', 'code', 'department']);
@@ -21,7 +22,6 @@ class DocumentController extends Controller
                 $q->where('slug', $request->category);
             });
         }
-
         $documents = $query->latest()->get();
 
         // ===== HITUNG STATISTIK =====
@@ -36,8 +36,8 @@ class DocumentController extends Controller
         $prosedur = Document::whereHas('category', fn($q) =>
         $q->where('slug', 'prosedur'))->count();
 
-        $instruksi = Document::whereHas('category', fn($q) =>
-        $q->where('slug', 'instruksi-kerja'))->count();
+        $instruksikerja = Document::whereHas('category', fn($q) =>
+        $q->where('slug', 'instruksikerja'))->count();
 
         $formulir = Document::whereHas('category', fn($q) =>
         $q->where('slug', 'formulir'))->count();
@@ -45,19 +45,46 @@ class DocumentController extends Controller
         $totalDepartments = Department::count();
         $totalUsers = User::count();
 
+        $total = max($totalDocuments, 1);
+
+        $ratifikasiPercent = round(($ratifikasi / $total) * 100);
+        $pedomanPercent = round(($pedoman / $total) * 100);
+        $prosedurPercent = round(($prosedur / $total) * 100);
+        $instruksikerjaPercent = round(($instruksikerja / $total) * 100);
+        $formulirPercent = round(($formulir / $total) * 100);
+
         return view('admin.documents.index', compact(
             'documents',
             'totalDocuments',
             'ratifikasi',
             'pedoman',
             'prosedur',
-            'instruksi',
+            'instruksikerja',
             'formulir',
             'totalDepartments',
             'totalUsers'
         ));
     }
 
+    public function byCategory($slug)
+    {
+        if ($slug == 'all') {
+            $documents = Document::with(['category', 'code', 'department'])
+                ->latest()
+                ->get();
+        } else {
+            $documents = Document::with(['category', 'code', 'department'])
+                ->whereHas('category', function ($q) use ($slug) {
+                    $q->where('slug', $slug);
+                })
+                ->latest()
+                ->get();
+        }
+
+        $title = ucfirst(str_replace('-', ' ', $slug));
+
+        return view('admin.documents.category', compact('documents', 'title'));
+    }
     public function create()
     {
         return view('admin.documents.create', [

@@ -1,66 +1,57 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="grid grid-cols-4 gap-4 mb-6">
 
-<div class="grid grid-cols-4 gap-4 mb-6">
+        <a href="{{ route('admin.documents.byCategory', 'all') }}"
+            class="bg-blue-100 p-4 rounded-xl shadow hover:scale-105 transition block">
+            <div class="text-gray-600 text-sm">Semua Dokumen</div>
+            <div class="text-2xl font-bold text-blue-700">
+                {{ $totalDocuments }}
+            </div>
+        </a>
 
-    <div class="bg-blue-100 p-4 rounded-xl shadow">
-        <div class="text-gray-600 text-sm">Semua Dokumen</div>
-        <div class="text-2xl font-bold text-blue-700">
-            {{ $totalDocuments }}
-        </div>
+        <a href="{{ route('admin.documents.byCategory', 'ratifikasi') }}"
+            class="bg-green-100 p-4 rounded-xl shadow hover:scale-105 transition block">
+            <div class="text-gray-600 text-sm">Ratifikasi</div>
+            <div class="text-2xl font-bold text-green-700">
+                {{ $ratifikasi }}
+            </div>
+        </a>
+
+        <a href="{{ route('admin.documents.byCategory', 'pedoman') }}"
+            class="bg-indigo-100 p-4 rounded-xl shadow hover:scale-105 transition block">
+            <div class="text-gray-600 text-sm">Pedoman</div>
+            <div class="text-2xl font-bold text-indigo-700">
+                {{ $pedoman }}
+            </div>
+        </a>
+
+        <a href="{{ route('admin.documents.byCategory', 'prosedur') }}"
+            class="bg-purple-100 p-4 rounded-xl shadow hover:scale-105 transition block">
+            <div class="text-gray-600 text-sm">Prosedur</div>
+            <div class="text-2xl font-bold text-purple-700">
+                {{ $prosedur }}
+            </div>
+        </a>
+
+        <a href="{{ route('admin.documents.byCategory', 'instruksi-kerja') }}"
+            class="bg-yellow-100 p-4 rounded-xl shadow hover:scale-105 transition block">
+            <div class="text-gray-600 text-sm">Instruksi Kerja</div>
+            <div class="text-2xl font-bold text-yellow-700">
+                {{ $instruksikerja }}
+            </div>
+        </a>
+
+        <a href="{{ route('admin.documents.byCategory', 'formulir') }}"
+            class="bg-red-100 p-4 rounded-xl shadow hover:scale-105 transition block">
+            <div class="text-gray-600 text-sm">Formulir</div>
+            <div class="text-2xl font-bold text-red-700">
+                {{ $formulir }}
+            </div>
+        </a>
+
     </div>
-
-    <div class="bg-green-100 p-4 rounded-xl shadow">
-        <div class="text-gray-600 text-sm">Ratifikasi</div>
-        <div class="text-2xl font-bold text-green-700">
-            {{ $ratifikasi }}
-        </div>
-    </div>
-
-    <div class="bg-indigo-100 p-4 rounded-xl shadow">
-        <div class="text-gray-600 text-sm">Pedoman</div>
-        <div class="text-2xl font-bold text-indigo-700">
-            {{ $pedoman }}
-        </div>
-    </div>
-
-    <div class="bg-purple-100 p-4 rounded-xl shadow">
-        <div class="text-gray-600 text-sm">Prosedur</div>
-        <div class="text-2xl font-bold text-purple-700">
-            {{ $prosedur }}
-        </div>
-    </div>
-
-    <div class="bg-yellow-100 p-4 rounded-xl shadow">
-        <div class="text-gray-600 text-sm">Instruksi</div>
-        <div class="text-2xl font-bold text-yellow-700">
-            {{ $instruksi }}
-        </div>
-    </div>
-
-    <div class="bg-red-100 p-4 rounded-xl shadow">
-        <div class="text-gray-600 text-sm">Formulir</div>
-        <div class="text-2xl font-bold text-red-700">
-            {{ $formulir }}
-        </div>
-    </div>
-
-    <div class="bg-gray-100 p-4 rounded-xl shadow">
-        <div class="text-gray-600 text-sm">Departemen</div>
-        <div class="text-2xl font-bold text-gray-700">
-            {{ $totalDepartments }}
-        </div>
-    </div>
-
-    <div class="bg-gray-200 p-4 rounded-xl shadow">
-        <div class="text-gray-600 text-sm">Users</div>
-        <div class="text-2xl font-bold text-gray-700">
-            {{ $totalUsers }}
-        </div>
-    </div>
-
-</div>
     <div class="bg-indigo-600 text-white px-6 py-3 rounded-t-xl">
         <h2 class="font-semibold text-lg">Data Dokumen</h2>
     </div>
@@ -100,35 +91,34 @@
             $currentCategory = request('category', 'all');
         @endphp
 
-        <div class="flex gap-4 mb-4">
+        <div class="flex gap-4 mb-6">
 
-            <a href="{{ route('admin.documents.index', ['category' => 'all']) }}"
-                class="px-4 py-2 rounded-lg {{ $currentCategory == 'all' ? 'bg-blue-600 text-white' : 'bg-gray-200' }}">
+            <a href="{{ route('admin.documents.index') }}" class="px-4 py-2 rounded-lg bg-blue-600 text-white">
                 Semua
             </a>
 
             <a href="{{ route('admin.documents.index', ['category' => 'ratifikasi']) }}"
-                class="px-4 py-2 rounded-lg {{ $currentCategory == 'ratifikasi' ? 'bg-blue-600 text-white' : 'bg-gray-200' }}">
+                class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300">
                 Ratifikasi
             </a>
 
             <a href="{{ route('admin.documents.index', ['category' => 'pedoman']) }}"
-                class="px-4 py-2 rounded-lg {{ $currentCategory == 'pedoman' ? 'bg-blue-600 text-white' : 'bg-gray-200' }}">
+                class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300">
                 Pedoman
             </a>
 
             <a href="{{ route('admin.documents.index', ['category' => 'prosedur']) }}"
-                class="px-4 py-2 rounded-lg {{ $currentCategory == 'prosedur' ? 'bg-blue-600 text-white' : 'bg-gray-200' }}">
+                class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300">
                 Prosedur
             </a>
 
             <a href="{{ route('admin.documents.index', ['category' => 'instruksi-kerja']) }}"
-                class="px-4 py-2 rounded-lg {{ $currentCategory == 'instruksi-kerja' ? 'bg-blue-600 text-white' : 'bg-gray-200' }}">
+                class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300">
                 Instruksi Kerja
             </a>
 
             <a href="{{ route('admin.documents.index', ['category' => 'formulir']) }}"
-                class="px-4 py-2 rounded-lg {{ $currentCategory == 'formulir' ? 'bg-blue-600 text-white' : 'bg-gray-200' }}">
+                class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300">
                 Formulir
             </a>
 
@@ -218,4 +208,30 @@
         </div>
 
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const counters = document.querySelectorAll('.counter');
+
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const current = +counter.innerText;
+
+                    const increment = Math.ceil(target / 50);
+
+                    if (current < target) {
+                        counter.innerText = current + increment;
+                        setTimeout(updateCount, 20);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+
+                updateCount();
+            });
+
+        });
+    </script>
 @endsection

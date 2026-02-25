@@ -43,6 +43,8 @@ Route::middleware(['auth', 'role:admin'])
         Route::resource('document-categories', DocumentCategoryController::class)
             ->only(['index', 'create', 'store']);
 
+Route::get('documents/category/{slug}', [DocumentController::class, 'byCategory'])
+    ->name('documents.byCategory');
         // Document Codes
         Route::resource('document-codes', DocumentCodeController::class)
             ->only(['index', 'create', 'store', 'show', 'edit', 'update', 'destroy']);
