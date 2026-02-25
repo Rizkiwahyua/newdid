@@ -36,66 +36,120 @@
 
         </div>
 
+        @php
+            $currentCategory = request('category', 'all');
+        @endphp
+
+        <div class="flex gap-4 mb-4">
+
+            <a href="{{ route('admin.documents.index', ['category' => 'all']) }}"
+                class="px-4 py-2 rounded-lg {{ $currentCategory == 'all' ? 'bg-blue-600 text-white' : 'bg-gray-200' }}">
+                Semua
+            </a>
+
+            <a href="{{ route('admin.documents.index', ['category' => 'ratifikasi']) }}"
+                class="px-4 py-2 rounded-lg {{ $currentCategory == 'ratifikasi' ? 'bg-blue-600 text-white' : 'bg-gray-200' }}">
+                Ratifikasi
+            </a>
+
+            <a href="{{ route('admin.documents.index', ['category' => 'pedoman']) }}"
+                class="px-4 py-2 rounded-lg {{ $currentCategory == 'pedoman' ? 'bg-blue-600 text-white' : 'bg-gray-200' }}">
+                Pedoman
+            </a>
+
+            <a href="{{ route('admin.documents.index', ['category' => 'prosedur']) }}"
+                class="px-4 py-2 rounded-lg {{ $currentCategory == 'prosedur' ? 'bg-blue-600 text-white' : 'bg-gray-200' }}">
+                Prosedur
+            </a>
+
+            <a href="{{ route('admin.documents.index', ['category' => 'instruksi-kerja']) }}"
+                class="px-4 py-2 rounded-lg {{ $currentCategory == 'instruksi-kerja' ? 'bg-blue-600 text-white' : 'bg-gray-200' }}">
+                Instruksi Kerja
+            </a>
+
+            <a href="{{ route('admin.documents.index', ['category' => 'formulir']) }}"
+                class="px-4 py-2 rounded-lg {{ $currentCategory == 'formulir' ? 'bg-blue-600 text-white' : 'bg-gray-200' }}">
+                Formulir
+            </a>
+
+        </div>
+
         <!-- TABLE -->
-        <div class="overflow-x-auto">
-            <table class="w-full border">
+        <div class="overflow-x-auto bg-white shadow rounded-xl">
+            <table class="w-full text-sm text-left border-collapse">
                 <thead>
-                    <tr class="bg-gray-100">
-                        <th class="border p-2">Aksi</th>
-                        <th class="border p-2">Judul</th>
-                        <th class="border p-2">Kategori</th>
-                        <th class="border p-2">Kode</th>
-                        <th class="border p-2">Departemen</th>
-                        <th class="border p-2">Nomor Dokumen</th>
-                        <th class="border p-2">Revisi</th>
-                        <th class="border p-2">Tanggal</th>
-                        <th class="border p-2">Keterangan</th>
+                    <tr class="bg-gray-100 text-sm uppercase text-gray-600">
+                        <th class="p-3">Action</th>
+                        <th class="p-3">Nomor</th>
+                        <th class="p-3">Nama Dokumen</th>
+                        <th class="p-3">Revisi</th>
+                        <th class="p-3">Unit Kerja</th>
+                        <th class="p-3">Keterangan</th>
+                        <th class="p-3">Tanggal</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     @forelse ($documents as $doc)
-                        <tr>
-                            <td class="border p-2">
+                        <tr class="border-b hover:bg-gray-50">
+
+                            <!-- ACTION -->
+                            <td class="p-3 flex gap-2">
+
+                                @if ($doc->file_document)
+                                    <a href="{{ asset($doc->file_document) }}"
+                                        class="bg-green-500 text-white px-2 py-1 rounded text-xs">
+                                        ⬇
+                                    </a>
+                                @endif
+
                                 <a href="{{ route('admin.documents.edit', $doc->id) }}"
-                                    class="bg-yellow-500 text-white px-3 py-1 rounded text-sm">
+                                    class="bg-yellow-500 text-white px-2 py-1 rounded text-xs">
                                     ✏
                                 </a>
+
                                 <form action="{{ route('admin.documents.destroy', $doc->id) }}" method="POST"
-                                    class="inline-block" onsubmit="return confirm('Yakin ingin menghapus dokumen ini?')">
+                                    onsubmit="return confirm('Yakin hapus dokumen?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded text-sm">
+                                    <button class="bg-red-500 text-white px-2 py-1 rounded text-xs">
                                         🗑
                                     </button>
                                 </form>
-                                @if ($doc->file_document)
-                                    <a href="{{ asset($doc->file_document) }}" target="_blank"
-                                        class="bg-green-500 text-white px-3 py-1 rounded text-sm">
-                                        Lihat
-                                    </a>
-                                @else
-                                    <span class="text-gray-400 text-sm">
-                                        Tidak Ada File
-                                    </span>
-                                @endif
+
                             </td>
 
-                            <td class="border p-2">{{ $doc->title }}</td>
-                            <td class="border p-2">{{ $doc->category->name ?? '-' }}</td>
-                            <td class="border p-2">{{ $doc->code->code ?? '-' }}</td>
-                            <td class="border p-2">{{ $doc->department->name ?? '-' }}</td>
-                            <td class="border p-2">{{ $doc->document_number }}</td>
-                            <td class="border p-2">{{ $doc->revision }}</td>
+                            <!-- NOMOR -->
+                            <td class="p-3">{{ $doc->document_number }}</td>
 
-                            <td class="border p-2">{{ $doc->document_date }}</td>
-                            <td class="border p-2">{{ $doc->description }}</td>
+                            <!-- NAMA DOKUMEN -->
+                            <td class="p-3 font-semibold">
+                                {{ $doc->title }}
+                            </td>
+
+                            <!-- REVISI -->
+                            <td class="p-3">{{ $doc->revision ?? 0 }}</td>
+
+                            <!-- UNIT KERJA -->
+                            <td class="p-3">
+                                {{ $doc->department->name ?? '-' }}
+                            </td>
+
+                            <!-- KETERANGAN -->
+                            <td class="p-3">
+                                {{ $doc->description ?? '-' }}
+                            </td>
+
+                            <!-- TANGGAL -->
+                            <td class="p-3">
+                                {{ \Carbon\Carbon::parse($doc->document_date)->format('d-m-Y') }}
+                            </td>
 
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="10" class="text-center p-4 text-gray-500">
-                                Tidak ada data dokumen
+                            <td colspan="7" class="text-center p-5 text-gray-400">
+                                Tidak ada dokumen
                             </td>
                         </tr>
                     @endforelse

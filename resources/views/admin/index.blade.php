@@ -222,7 +222,7 @@
             }
 
             .filter-btn.active {
-                background: #6366f1;
+                background: #3b81eb;
                 color: white;
             }
         </style>

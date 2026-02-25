@@ -11,9 +11,19 @@ use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $documents = Document::with(['category', 'code', 'department'])->latest()->get();
+        $query = Document::with(['category', 'code', 'department']);
+
+        // Filter berdasarkan kategori
+        if ($request->has('category') && $request->category != 'all') {
+            $query->whereHas('category', function ($q) use ($request) {
+                $q->where('slug', $request->category);
+            });
+        }
+
+        $documents = $query->latest()->get();
+
         return view('admin.documents.index', compact('documents'));
     }
 
