@@ -253,31 +253,6 @@
         });
     </script>
 
-    {{-- 
-    <script>
-        function deleteDocument(id) {
-            let reason = prompt("Masukkan keterangan hapus:");
-
-            if (!reason) {
-                alert("Keterangan hapus wajib diisi!");
-                return;
-            }
-
-            let form = document.createElement('form');
-            form.method = 'POST';
-            form.action = '/admin/documents/' + id;
-
-            form.innerHTML = `
-        @csrf
-        @method('DELETE')
-        <input type="hidden" name="delete_reason" value="${reason}">
-    `;
-
-            document.body.appendChild(form);
-            form.submit();
-        }
-    </script> --}}
-
     <!-- DELETE MODAL -->
     <div id="deleteModal" class="fixed inset-0 bg-black bg-opacity-40 hidden items-center justify-center z-50">
         <div class="bg-white rounded-xl shadow-lg w-96 p-6">
