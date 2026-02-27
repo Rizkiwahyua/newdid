@@ -13,6 +13,7 @@
                     <th class="p-3">Judul</th>
                     <th class="p-3">Tanggal Hapus</th>
                     <th class="p-3 text-center">Preview</th>
+                    <th class="p-3">Keterangan Hapus</th>
                     <th class="p-3 text-center">Action</th>
                 </tr>
             </thead>
@@ -36,6 +37,7 @@
                             {{ $doc->deleted_at->format('d-m-Y H:i') }}
                         </td>
 
+
                         <!-- PREVIEW -->
                         <td class="p-3 text-center">
                             @if ($doc->file_document)
@@ -46,6 +48,10 @@
                             @else
                                 <span class="text-gray-400">Tidak ada file</span>
                             @endif
+                        </td>
+
+                        <td class="p-3 text-red-600">
+                            {{ $doc->delete_reason ?? '-' }}
                         </td>
 
                         <!-- ACTION -->

@@ -170,7 +170,7 @@
                                     class="bg-blue-500 text-white px-2 py-1 rounded text-xs">
                                     👁
                                 </a>
-                                
+
                                 {{-- @if ($doc->file_document)
                                     <a href="{{ asset($doc->file_document) }}"
                                         class="bg-green-500 text-white px-2 py-1 rounded text-xs">
@@ -182,19 +182,12 @@
                                     class="bg-yellow-500 text-white px-2 py-1 rounded text-xs">
                                     ✏
                                 </a>
+                                <button type="button" onclick="openDeleteModal({{ $doc->id }})"
+                                    class="bg-red-500 text-white px-2 py-1 rounded text-xs">
+                                    🗑
+                                </button>
 
-                                <form action="{{ route('admin.documents.destroy', $doc->id) }}" method="POST"
-                                    onsubmit="return confirm('Yakin hapus dokumen?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="bg-red-500 text-white px-2 py-1 rounded text-xs">
-                                        🗑
-                                    </button>
-                                </form>
-
-                            </td>
-
-                            <!-- NOMOR -->
+                                <!-- NOMOR -->
                             <td class="p-3">{{ $doc->document_number }}</td>
 
                             <!-- NAMA DOKUMEN -->
@@ -258,5 +251,74 @@
             });
 
         });
+    </script>
+
+    {{-- 
+    <script>
+        function deleteDocument(id) {
+            let reason = prompt("Masukkan keterangan hapus:");
+
+            if (!reason) {
+                alert("Keterangan hapus wajib diisi!");
+                return;
+            }
+
+            let form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/admin/documents/' + id;
+
+            form.innerHTML = `
+        @csrf
+        @method('DELETE')
+        <input type="hidden" name="delete_reason" value="${reason}">
+    `;
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script> --}}
+
+    <!-- DELETE MODAL -->
+    <div id="deleteModal" class="fixed inset-0 bg-black bg-opacity-40 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl shadow-lg w-96 p-6">
+
+            <h3 class="text-lg font-semibold mb-4">Keterangan Hapus Dokumen</h3>
+
+            <form id="deleteForm" method="POST">
+                @csrf
+                @method('DELETE')
+
+                <textarea name="delete_reason" id="deleteReason" class="w-full border rounded p-2 text-sm"
+                    placeholder="Masukkan alasan penghapusan..." required></textarea>
+
+                <div class="flex justify-end gap-3 mt-4">
+                    <button type="button" onclick="closeDeleteModal()" class="px-3 py-1 bg-gray-300 rounded">
+                        Batal
+                    </button>
+
+                    <button type="submit" class="px-3 py-1 bg-red-600 text-white rounded">
+                        Hapus
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+        function openDeleteModal(id) {
+            const modal = document.getElementById('deleteModal');
+            const form = document.getElementById('deleteForm');
+
+            form.action = '/admin/documents/' + id;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeDeleteModal() {
+            const modal = document.getElementById('deleteModal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
     </script>
 @endsection

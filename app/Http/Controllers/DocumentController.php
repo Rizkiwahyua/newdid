@@ -206,12 +206,19 @@ class DocumentController extends Controller
     }
 
 
-    public function destroy(Document $document)
+    public function destroy(Request $request, Document $document)
     {
+        $request->validate([
+            'delete_reason' => 'required|string|max:1000'
+        ]);
+
+        $document->delete_reason = $request->delete_reason;
+        $document->save();
+
         $document->delete();
 
         return redirect()->route('admin.documents.index')
-            ->with('success', 'Dokumen dipindahkan ke Recycle Bin');
+            ->with('success', 'Dokumen berhasil dihapus');
     }
 
     public function trash()
